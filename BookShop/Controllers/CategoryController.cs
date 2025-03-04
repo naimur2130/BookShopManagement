@@ -15,6 +15,28 @@ namespace BookShop.Controllers
         public IActionResult Index()
         {
             List<Category> objCategoryList = _db.Category.ToList();
+            return View(objCategoryList);
+        }
+
+        public IActionResult CreateCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateCategory(Category obj)
+        {
+
+            if(obj.CategoryName==obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("CategoryName","The Order and Category Name cannot be same");
+            }
+
+            if(ModelState.IsValid)
+            {
+                _db.Category.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }

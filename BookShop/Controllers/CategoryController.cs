@@ -35,9 +35,69 @@ namespace BookShop.Controllers
             {
                 _db.Category.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Successfully!";
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        public IActionResult EditCategory(int? id)
+        {
+            if(id==null || id==0)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDB = _db.Category.FirstOrDefault(u=>u.CategoryId==id);
+
+            if(categoryFromDB==null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDB);
+        }
+        [HttpPost]
+        public IActionResult EditCategory(Category obj)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _db.Category.Update(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category Updated Successfully!";
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDB = _db.Category.FirstOrDefault(u => u.CategoryId == id);
+
+            if (categoryFromDB == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDB);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? obj = _db.Category.FirstOrDefault(u=>u.CategoryId==id);
+
+            if(obj==null)
+            {
+                return NotFound();
+            }
+            _db.Category.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category Deleted Successfully!";
+            return RedirectToAction("Index");
         }
     }
 }

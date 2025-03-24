@@ -26,9 +26,14 @@ namespace BookShopCore.Pages.Categories
 
         public IActionResult OnPost()
         {
-            _db.Category.Update(Category);
-            _db.SaveChanges();
-            return RedirectToPage("Index");
+            if(ModelState.IsValid)
+            {
+                _db.Category.Update(Category);
+                _db.SaveChanges();
+                TempData["success"] = "Catergory Updated Successfully";
+                return RedirectToPage("Index");
+            }
+            return Page();
         }
     }
 }

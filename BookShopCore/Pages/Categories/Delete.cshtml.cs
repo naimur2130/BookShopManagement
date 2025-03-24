@@ -26,9 +26,15 @@ namespace BookShopCore.Pages.Categories
 
         public IActionResult OnPost()
         {
-            _db.Category.Remove(Category);
-            _db.SaveChanges();
-            return RedirectToPage("Index");
+
+            if(ModelState.IsValid)
+            {
+                _db.Category.Remove(Category);
+                _db.SaveChanges();
+                TempData["success"] = "Catergory Deleted Successfully";
+                return RedirectToPage("Index");
+            }
+            return Page();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace BookShopCore.Pages.Categories
         {
             _db.Category.Add(Category);
             _db.SaveChanges();
+            TempData["success"] = "Catergory Created Successfully";
             return RedirectToPage("Index");
         }
     }

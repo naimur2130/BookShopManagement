@@ -1,4 +1,6 @@
-using BookShop.Context;
+using BookShop.DataAccess.Context;
+using BookShop.DataAccess.Repository;
+using BookShop.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDBContext>(
     options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -29,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=BookShopCustomer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

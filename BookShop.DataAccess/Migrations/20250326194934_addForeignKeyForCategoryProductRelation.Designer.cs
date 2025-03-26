@@ -3,6 +3,7 @@ using BookShop.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250326194934_addForeignKeyForCategoryProductRelation")]
+    partial class addForeignKeyForCategoryProductRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,9 +99,6 @@ namespace BookShop.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductImage")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -122,7 +122,6 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Billy Spark",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "SWD9999001",
-                            ProductImage = "",
                             ProductName = "Fortune of Time"
                         },
                         new
@@ -136,7 +135,6 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Nancy Hoover",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "CAW777777701",
-                            ProductImage = "",
                             ProductName = "Dark Skies"
                         },
                         new
@@ -150,7 +148,6 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Julian Button",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "RITO5555501",
-                            ProductImage = "",
                             ProductName = "Vanish in the Sunset"
                         },
                         new
@@ -164,7 +161,6 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Abby Muscles",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "WS3333333301",
-                            ProductImage = "",
                             ProductName = "Cotton Candy"
                         },
                         new
@@ -178,7 +174,6 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Ron Parker",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "SOTJ1111111101",
-                            ProductImage = "",
                             ProductName = "Rock in the Ocean"
                         },
                         new
@@ -192,7 +187,6 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Laura Phantom",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "FOT000000001",
-                            ProductImage = "",
                             ProductName = "Leaves and Wonders"
                         });
                 });

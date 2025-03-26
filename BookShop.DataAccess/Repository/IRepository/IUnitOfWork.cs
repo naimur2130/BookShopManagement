@@ -8,7 +8,9 @@ namespace BookShop.DataAccess.Repository.IRepository
 {
     public interface IUnitOfWork
     {
-        ICategoryRepository CategoryRepository { get; }
+        ICategoryRepository categoryRepository { get; }
+        IProductRepository productRepository { get; }
+
         void Save();
     }
 }

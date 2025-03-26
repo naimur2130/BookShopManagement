@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace BookShop.Models
 {
@@ -16,7 +18,7 @@ namespace BookShop.Models
         [MaxLength(50, ErrorMessage = "Name length must be between 50 characters")]
         [DisplayName("Product Name")]
         public string? ProductName { get; set; }
-        public string ProductDescription { get; set; }
+        public string? ProductDescription { get; set; }
         [Required]
         public string? ProductISBN { get; set; }
         [Required]
@@ -37,6 +39,13 @@ namespace BookShop.Models
         [Display(Name = "Price of Books with a quantity 100+")]
         [Range(1, 1000)]
         public double ListofPrice100 { get; set; }
+
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        [ValidateNever]
+        public Category? Category { get; set; }
+        [ValidateNever]
+        public string? ProductImage { get; set; }
 
     }
 }

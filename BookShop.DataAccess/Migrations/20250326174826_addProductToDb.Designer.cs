@@ -3,6 +3,7 @@ using BookShop.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250326174826_addProductToDb")]
+    partial class addProductToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +73,6 @@ namespace BookShop.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<double>("ListofPrice")
                         .HasColumnType("float");
 
@@ -96,9 +96,6 @@ namespace BookShop.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductImage")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -106,15 +103,12 @@ namespace BookShop.DataAccess.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Product");
 
                     b.HasData(
                         new
                         {
                             ProductId = 1,
-                            CategoryId = 4,
                             ListofPrice = 99.0,
                             ListofPrice100 = 80.0,
                             ListofPrice50 = 85.0,
@@ -122,13 +116,11 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Billy Spark",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "SWD9999001",
-                            ProductImage = "",
                             ProductName = "Fortune of Time"
                         },
                         new
                         {
                             ProductId = 2,
-                            CategoryId = 4,
                             ListofPrice = 40.0,
                             ListofPrice100 = 20.0,
                             ListofPrice50 = 25.0,
@@ -136,13 +128,11 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Nancy Hoover",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "CAW777777701",
-                            ProductImage = "",
                             ProductName = "Dark Skies"
                         },
                         new
                         {
                             ProductId = 3,
-                            CategoryId = 2,
                             ListofPrice = 55.0,
                             ListofPrice100 = 35.0,
                             ListofPrice50 = 40.0,
@@ -150,13 +140,11 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Julian Button",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "RITO5555501",
-                            ProductImage = "",
                             ProductName = "Vanish in the Sunset"
                         },
                         new
                         {
                             ProductId = 4,
-                            CategoryId = 6,
                             ListofPrice = 70.0,
                             ListofPrice100 = 55.0,
                             ListofPrice50 = 60.0,
@@ -164,13 +152,11 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Abby Muscles",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "WS3333333301",
-                            ProductImage = "",
                             ProductName = "Cotton Candy"
                         },
                         new
                         {
                             ProductId = 5,
-                            CategoryId = 3,
                             ListofPrice = 30.0,
                             ListofPrice100 = 20.0,
                             ListofPrice50 = 25.0,
@@ -178,13 +164,11 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Ron Parker",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "SOTJ1111111101",
-                            ProductImage = "",
                             ProductName = "Rock in the Ocean"
                         },
                         new
                         {
                             ProductId = 6,
-                            CategoryId = 2,
                             ListofPrice = 25.0,
                             ListofPrice100 = 20.0,
                             ListofPrice50 = 22.0,
@@ -192,20 +176,8 @@ namespace BookShop.DataAccess.Migrations
                             ProductAuthor = "Laura Phantom",
                             ProductDescription = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ProductISBN = "FOT000000001",
-                            ProductImage = "",
                             ProductName = "Leaves and Wonders"
                         });
-                });
-
-            modelBuilder.Entity("BookShop.Models.Product", b =>
-                {
-                    b.HasOne("BookShop.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

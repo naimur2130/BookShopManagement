@@ -16,7 +16,7 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
 
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _unit.CategoryRepository.GetAll().ToList();
+            List<Category> objCategoryList = _unit.categoryRepository.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -35,7 +35,7 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unit.CategoryRepository.Add(obj);
+                _unit.categoryRepository.Add(obj);
                 _unit.Save();
                 TempData["success"] = "Category Created Successfully!";
                 return RedirectToAction("Index");
@@ -50,7 +50,7 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDB = _unit.CategoryRepository.GetFirstOrDefault(u => u.CategoryId == id);
+            Category? categoryFromDB = _unit.categoryRepository.GetFirstOrDefault(u => u.CategoryId == id);
 
             if (categoryFromDB == null)
             {
@@ -64,7 +64,7 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unit.CategoryRepository.Update(obj);
+                _unit.categoryRepository.Update(obj);
                 _unit.Save();
                 TempData["success"] = "Category Updated Successfully!";
                 return RedirectToAction("Index");
@@ -79,7 +79,7 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDB = _unit.CategoryRepository.GetFirstOrDefault(u => u.CategoryId == id);
+            Category? categoryFromDB = _unit.categoryRepository.GetFirstOrDefault(u => u.CategoryId == id);
 
             if (categoryFromDB == null)
             {
@@ -90,13 +90,13 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _unit.CategoryRepository.GetFirstOrDefault(u => u.CategoryId == id);
+            Category? obj = _unit.categoryRepository.GetFirstOrDefault(u => u.CategoryId == id);
 
             if (obj == null)
             {
                 return NotFound();
             }
-            _unit.CategoryRepository.Remove(obj);
+            _unit.categoryRepository.Remove(obj);
             _unit.Save();
             TempData["success"] = "Category Deleted Successfully!";
             return RedirectToAction("Index");

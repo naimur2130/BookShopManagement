@@ -10,9 +10,9 @@ namespace BookShop.DataAccess.Repository.IRepository
     public interface IRepository<T> where T : class
     {
         // Retrieve all category
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
         //Retrieve a single category
-        T GetFirstOrDefault(Expression<Func<T,bool>> filter);
+        T GetFirstOrDefault(Expression<Func<T,bool>> filter, string? includeProperties = null);
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);

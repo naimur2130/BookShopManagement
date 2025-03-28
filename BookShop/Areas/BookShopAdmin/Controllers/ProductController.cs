@@ -21,7 +21,7 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
 
         public IActionResult Index()
         {
-            List<Product> objProductList = _unit.productRepository.GetAll().ToList();
+            List<Product> objProductList = _unit.productRepository.GetAll(includeProperties:"Category").ToList();
             return View(objProductList);
         }
 
@@ -66,6 +66,19 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
                     string fileName = Guid.NewGuid().ToString()+Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\Product");
 
+                    if(!string.IsNullOrEmpty(model.Product.ProductImage))
+                    {
+                        //at first we have to delete the old image path
+
+                        var oldPath = Path.Combine(wwwRootPath,
+                            model.Product.ProductImage.TrimStart('\\'));
+
+                        if(System.IO.File.Exists(oldPath))
+                        {
+                            System.IO.File.Delete(oldPath);
+                        }
+                    }
+
                     using (var filestream = new FileStream(Path.Combine(productPath,fileName),FileMode.Create))
                     {
                         file.CopyTo(filestream);
@@ -73,10 +86,21 @@ namespace BookShop.Areas.BookShopAdmin.Controllers
 
                     model.Product.ProductImage = @"\images\Product\" + fileName;
                 }
-                _unit.productRepository.Add(model.Product);
-                _unit.Save();
-                TempData["success"] = "Product Created Successfully!";
-                return RedirectToAction("Index");
+                if(model.Product.ProductId!=0)
+                {
+                    _unit.productRepository.Update(model.Product);
+                    _unit.Save();
+                    TempData["success"] = "Product Updated Successfully!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unit.productRepository.Add(model.Product);
+                    _unit.Save();
+                    TempData["success"] = "Product Created Successfully!";
+                    return RedirectToAction("Index");
+                }
+                
             }
             else
             {

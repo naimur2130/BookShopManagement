@@ -1,9 +1,11 @@
 ﻿using BookShop.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.DataAccess.Context
 {
-    public class AppDBContext : DbContext
+    public class AppDBContext : IdentityDbContext<IdentityUser>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) 
         {
@@ -13,9 +15,12 @@ namespace BookShop.DataAccess.Context
         public DbSet<Category>Category {  get; set; }
         public DbSet<Product> Product { get; set; }
 
-
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //When we apply IdentityDbContext we have write this particular line of code
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, CategoryName = "Thriller", DisplayOrder = 1 },
                 new Category { CategoryId = 2, CategoryName = "Sci-Fi", DisplayOrder = 2 },
